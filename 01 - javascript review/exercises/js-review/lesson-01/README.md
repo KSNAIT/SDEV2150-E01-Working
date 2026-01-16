@@ -174,3 +174,10 @@ git commit -m 'Lesson 1 Example'
 ```sh
 git push origin main
 ```
+--- NOTES ---
+All frontEnd Things are made up of 3 things: HTML, DOM (Document Object Model), and JS/CS(kinda but not really CS)
+  JS can have functions and behaviours, as well as events and event listeners. | And DOM Objects!
+  JS can digest HTML and DOM. 
+  All HTML Parsed as objects, to be able to be accessed in JS (Query selectors, etc.)
+
+  You can either do object oriented programming, with events & event listeners on the DOM Elements, or just 1 event listener that takes input from button pressed and then commits to action afterwards?
