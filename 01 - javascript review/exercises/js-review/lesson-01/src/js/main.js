@@ -72,6 +72,7 @@ for (const task of tasks) {
 }
 // for... of -> returns values
 // for... in -> returns keys
+
 // e.g. an arrat [10,11,12]
 // -> for.. of -> 10, 11, 12
 // -> for.. in -> 0, 1, 2 (i.e. the indices of the values)
@@ -113,8 +114,13 @@ list.innerHTML = renderTaskList(tasks);
 // - Set its textContent
 // - Append it to the output element
 
+function addMessage(message) {
+    const p = document.createElement('p'); // note you're specifying an HTML object 'type', NOT writing raw HTML.
+    p.textContent = message; // add some text to the new paragraph element
+    output.appendChild(p);  // then append the new element to an existing DOM element
+}
 // TODO: Test the addMessage function
-
+addMessage('This message was appended with document.createElement');
 // --------------------------------------------------
 // STEP 7: Events – connect UI to behavior
 // --------------------------------------------------
@@ -125,11 +131,25 @@ list.innerHTML = renderTaskList(tasks);
 // - Add a few messages
 // - Render the task list
 
+function runDemo() {
+    output.innerHTML = '';
+    addMessage('Running demo...'); // I can resue that function
+    addMessage(formatResult('5 + 8', add(5, 8))); // I can reuse it all!
+    list.innerHTML = renderTaskList(tasks); // manuall call our function to render the list
+}
+
+
 // TODO: Create a function clearUI()
 // - Clear both output and todo list containers
 
-// TODO: Add click listeners for btnRun and btnClear
+function clearUI () {
+    output.innerHTML = '';
+    list.innerHTML = '';
+}
 
+// TODO: Add click listeners for btnRun and btnClear
+btnRun.addEventListener("click", runDemo());
+btnClear.addEventListener("click", clearUI());
 // --------------------------------------------------
 // STEP 8: Mini extension – Adding tasks
 // --------------------------------------------------
