@@ -1,12 +1,15 @@
-import { useState } from 'react';
-
 import ResultsItem from './ResultsItem';
 import { resources } from '../data/resources';
 import Card from './ui/Card';
 
-export default function Results() {
+export default function Results({
+  selectedResource,
+  onSelectResource,
+  searchTerm,
+  selectedCategories,
+  openNow,
+}) {
   // In this example starter, we've already implemented state here to track which item is selected.
-  const [selectedResource, setSelectedResource] = useState(null);
 
   return (
     <Card title="Results">
@@ -18,7 +21,7 @@ export default function Results() {
             category={r.category}
             summary={r.summary}
             location={r.location}
-            onClick={() => setSelectedResource(r)}
+            onClick={() => onSelectResource(r)}
             selected={selectedResource?.id === r.id}
           >
             {/* Above, I'm passing two new props to ResultsItem:
