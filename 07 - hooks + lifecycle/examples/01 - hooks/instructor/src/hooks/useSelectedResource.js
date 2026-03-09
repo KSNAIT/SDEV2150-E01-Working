@@ -10,6 +10,7 @@ export function useSelectedResource() {
 	const [selectedResource, setSelectedResource] = useState(
 		// We are going to return values based on what we see in session storage.
 		// This logic accesses session storage to determine the default value for this state variable.
+		// All this logic is just to (safely) set the initial state value (across page reloads).
 		() => {
 			// 1. Try to retrieve the data at that key. sessionStorage is built-in to web/DOM;
 			//    we don't need to import it.
@@ -33,5 +34,25 @@ export function useSelectedResource() {
 
 	export function updateSelectedResource(resource) {
 		// We'll be using this to write a resource to the session storage.
+		// This function will act like the 'setter' for our custom hook, and wrap the actual state setter (setSelectedResource).
+
+		setSelectedResource(resource); // update our stateful variable; UI re-renders, etc.
+
+		// But we also want to write to session storage, so the stateful value persists across reloads.
+		if (resource === null) {
+			// We got passed null, so just remove the key from sessionStorage entirely.
+			sessionStorage.removeItem(STORAGE_KEY)
+		} else {
+			// Again, sessionStorage stores data as JSON, so we JSON-encode the data before writing it.
+			// -> sessionStorage.setItem(key, value)
+			sessionStorage.setItem(STORAGE_KEY, JSON.stringify(resource))
+		}
+
 	}
+
+	return [selectedResource, updateSelectedResource]
+	// Notice how what we return from this hook in the end isn't [val, setVal] directly from React state,
+	// but rather [val, someOtherHandler] that wraps the setter and adds functionality to write the data to session storage as well.
+
+	// Given that we're now reading initial state from session storage, and writing it into session storage, we now have persistent data!
 }
