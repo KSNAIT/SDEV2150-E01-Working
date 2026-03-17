@@ -1,4 +1,4 @@
-const theme = 'light';
+const theme = 'cupcake';
 
 export default function PageLayout({ header, children }) {
   return (
