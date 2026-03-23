@@ -1,8 +1,25 @@
+// react hooks
+import { useState } from 'react';
+
+// our custom hooks
 import { useResources } from '../hooks/useResources';
 
-import Card from '../components/ui/Card';
+// our components
+import Card from'../components/ui/Card';
 
 export default function AdminPage() {
+
+  // Unlike the Filters card example, we can also just pack all our form data into one object:
+  const [formData, setFormData] = useState({
+    title: 'Study Group',
+    category: 'Wellness',
+    summary: 'Some summary of the resource.',
+    location: 'NAIT Campus',
+    hours: 'Mon-Fri 08:00-13:00',
+    contact: 'study@nait.ca',
+    virtual: false,
+    openNow: false,
+  })
 
   {/* We're just reusing the hook we made to grab all our student services resources from API!
       
