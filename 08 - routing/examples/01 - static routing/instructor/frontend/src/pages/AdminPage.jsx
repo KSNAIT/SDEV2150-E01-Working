@@ -41,6 +41,86 @@ export default function AdminPage() {
         </p>
       </div>
 
+      {/* Example implementation of some form inputs. 
+
+          Note (refresher on spread operator) the onChange handler:
+            onChange={
+              (e) => setFormData(
+                { ...formData, title: e.target.value }
+              )
+            }
+
+          Similar to spreading an array:
+            const arr1 = [1, 2, 3]
+            const arr2 = [4, 5, 6]
+            const both = [...arr1, ...arr2]
+
+          The spread operator is used to flatten any sequenceable type
+          into a series that can be inserted into another sequence.
+
+          We can do this with objects, not just arrays, and we must fully
+          reconstruct the value/object/etc. when passing to state setter,
+          because the state variable is *immutable* (need to be completely overwritten).
+
+          So here, we're saying, "get all of the properties, then overwrite title specifically"
+          (most recent value is what is used).  
+
+      */}
+      <section className="md:col-span-3 lg:col-span-3">
+
+        <Card title="Resource Form">
+          <div className="card-body">
+
+            <form id="frm-add-resource" className="space-y-4">
+
+              <div className="space-y-1">
+                <label htmlFor="q" className="block text-sm font-medium text-gray-700">
+                  Search
+                </label>
+                <input
+                  id="q"
+                  type="text"
+                  className="w-full rounded border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-200"
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  placeholder="Resource title"
+                />
+              </div>
+
+              <hr className="border-gray-200" />
+
+              <div className="flex gap-2">
+                <button
+                  type="reset"
+                  className="rounded border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50"
+                  onClick={() => setFormData({
+                    title: '',
+                    category: '',
+                    summary: '',
+                    location: '',
+                    hours: '',
+                    contact: '',
+                    virtual: false,
+                    openNow: false,
+                  })}
+                >
+                  Reset
+                </button>
+                <button
+                  type="submit"
+                  className="rounded bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700"
+                >
+                  Add Resource
+                </button>
+              </div>
+
+            </form>
+
+          </div>
+        </Card>
+
+      </section>
+
       {isLoading && <p>Loading resources...</p>}
 
       {error && (
