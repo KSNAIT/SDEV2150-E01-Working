@@ -1,9 +1,16 @@
+// react hooks
 import { useState } from 'react';
 
+// react-router hooks
+import { useNavigate, useParams } from 'react-router';
+
+// our own hooks & components
 import { useResources } from '../hooks/useResources';
 import Card from '../components/ui/Card';
 
+
 export default function AdminPage() {
+
   const [formData, setFormData] = useState({
     title: 'Study Group',
     category: 'Wellness',
@@ -16,6 +23,14 @@ export default function AdminPage() {
   });
 
   const { resources, addResource, isLoading, error, refetch } = useResources();
+
+  // routing functionality
+  const navigate = useNavigate();  // react-router custom hook that returns a nav function I can use
+  const { resourceId } = useParams();
+  // console.log(resourceId)  // watch me ball
+  /* How does this know there's an element called "resourceId"? It's whatever we set
+     as the dynamic part of the route (see: main.jsx) -> "admin/:productId"
+  */
 
   async function handleCreateResource(e) {
     e.preventDefault();
