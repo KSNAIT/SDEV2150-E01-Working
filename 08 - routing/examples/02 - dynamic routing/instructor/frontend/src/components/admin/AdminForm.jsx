@@ -54,6 +54,7 @@ export default function AdminForm({
     */}
 
   const [formData, setFormData] = useState(initialData)
+  const [isEditing, setIsEditing] = useState(false);
 
   async function createResource(e) {
     e.preventDefault();
@@ -88,6 +89,7 @@ export default function AdminForm({
         virtual: false,
         openNow: false,
     })
+    setIsEditing(false);
   }
 
   // set up an effect to prepopulate the form data with whatever object corresponds
@@ -106,6 +108,7 @@ export default function AdminForm({
       // if there's no matching resource for the ID, leave the form blank
       if (!resource) return;
 
+      setIsEditing(true);
       setFormData({
         title: resource.title,
         category: resource.category,
@@ -258,7 +261,7 @@ export default function AdminForm({
           type="submit"
           className="rounded bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700"
         >
-          Add Resource
+          {isEditing ? 'Update Resource' : 'Add Resource'}
         </button>
       </div>
     </form>
